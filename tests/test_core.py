@@ -41,3 +41,12 @@ def test_audit_rejects_invalid(tmp_path):
     con=connect(str(tmp_path/'test.db'))
     with pytest.raises(ValueError):add_review(con,'e','a','invalid','reviewer','')
     con.close()
+
+
+def test_gemini_string_caveat_normalized():
+    response=AIResponse.model_validate({'summary':'Test','claims':[{'claim':'A statement','caveats':'Not independently verified'}],'missing_evidence':[],'limitations':[]})
+    assert response.claims[0].caveats == ['Not independently verified']
+
+def test_gemini_list_caveat_preserved():
+    response=AIResponse.model_validate({'summary':'Test','claims':[{'claim':'A statement','caveats':['First','Second']}],'missing_evidence':[],'limitations':[]})
+    assert response.claims[0].caveats == ['First','Second']
