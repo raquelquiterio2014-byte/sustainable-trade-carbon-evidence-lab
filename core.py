@@ -3,7 +3,7 @@ import hashlib
 import json
 from urllib.parse import urlparse
 import pandas as pd
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 REQUIRED = {"record_id", "product", "origin", "destination", "quantity_tonnes", "production_tco2e_per_tonne", "transport_tco2e", "source_label", "source_url", "evidence_status"}
 
@@ -13,6 +13,15 @@ class Claim(BaseModel):
     source_url: str = ""
     evidence_status: str = "unverified"
     caveats: list[str] = Field(default_factory=list)
+
+    @field_validator("caveats", mode="before")
+    @classmethod
+    def normalize_caveats(cls, value):
+        if value is None:
+            return []
+        if isinstance(value, str):
+            return [value] if value.strip() else []
+        return value
 
 class AIResponse(BaseModel):
     summary: str
