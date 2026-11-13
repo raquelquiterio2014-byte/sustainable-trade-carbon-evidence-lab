@@ -1,0 +1,5 @@
+record_id,product,origin,destination,quantity_tonnes,production_tco2e_per_tonne,transport_tco2e,source_label,source_url,evidence_status
+T001,Steel,Brazil,European Union,100,1.9,12,Illustrative teaching assumptions,,synthetic
+T002,Aluminium,Brazil,European Union,50,7.2,9,Illustrative teaching assumptions,,synthetic
+T003,Steel,Brazil,European Union,80,1.7,11,Illustrative teaching assumptions,,synthetic
+T004,Aluminium,Brazil,European Union,40,6.8,8,Illustrative teaching assumptions,,synthetic
